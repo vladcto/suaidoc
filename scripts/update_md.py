@@ -4,6 +4,7 @@ import re
 
 
 def replace_relative_image_paths(md_content, markdown_directory):
+    # re !["<image_name>"](<relative_path>)
     matches = re.finditer(r'!\["([^"]+)"\]\(([^)]+)\)', md_content)
 
     for match in matches:
@@ -12,13 +13,14 @@ def replace_relative_image_paths(md_content, markdown_directory):
 
         original_image_path = os.path.join(markdown_directory, relative_path)
 
-        md_content = md_content.replace('!["' + image_name + '"](' + relative_path + ')',
+        md_content = md_content.replace(match.group(0),
                                         '\\image{' + original_image_path + '}{' + image_name + '}')
 
     return md_content
 
 
 def replace_center_titles(md_content):
+    # re # <name> <suaidoc-center>
     matches = re.finditer(r'# ([^\n]+) <suaidoc-center>', md_content)
 
     for match in matches:
@@ -33,6 +35,8 @@ def replace_center_titles(md_content):
 parser = argparse.ArgumentParser()
 parser.add_argument('markdown_path', type=str,
                     help='Path to the markdown file')
+parser.add_argument('updated_directory', type=str,
+                    help='Path to the markdown file')
 
 args = parser.parse_args()
 
@@ -46,7 +50,7 @@ with open(file_path, 'r', encoding='utf-8') as file:
 md = replace_relative_image_paths(md, markdown_directory)
 md = replace_center_titles(md)
 
-output_file_path = os.path.join(markdown_directory, '_suaidoc_tmp.md')
+output_file_path = os.path.join(args.updated_directory, '_updated_md.md')
 
 with open(output_file_path, 'w', encoding='utf-8') as output_file:
     output_file.write(md)
