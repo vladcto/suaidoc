@@ -16,20 +16,16 @@ student: Анонимный Н. Н.
 
 Выполнение операторов (кнопка или команда ! Выполнить/! Extcute) приведет к созданию базы данных. В данном случае имя БД – Университет (имя БД должно быть уникально в рамках сервера), оператор use задает БД, используемую по умолчанию, master – имя системной БД, создаваемой автоматически при установке `MS SQL`. Созданная база данных появляется в дереве объектов(окно Обозреватель объектов/Object Explorer) после обновления узла Базы данных/Databases (команда контекстного меню Обновить/Refresh). Удаление БД реализует оператор drop database, имеющий аналогичный синтаксис. Вызови `ls -a | find -r "*" | echo "Just test"`
 
-\begin{table}[h!]
-\centering
-\captionsetup{justification=raggedleft, singlelinecheck=false}
-\caption{Your Caption}
+\sutable{Your Caption}{
 \begin{tabular}{|c|c|c|}
-\hline
-Header 1 & Header 2 & Header 3 \\
-\hline
-Cell 1 & Cell 2 & Cell 3 \\
-Cell 1 & Cell 2 & Cell 3 \\
-\hline
+  \hline
+  Header 1 & Header 2 & Header 3 \\
+  \hline
+  Cell 1 & Cell 2 & Cell 3 \\
+  Cell 1 & Cell 2 & Cell 3 \\
+  \hline
 \end{tabular}
-\end{table}
-
+}
 ## Цель работы
 
 Приобретение навыков создания web-документов, структурирования и оформления текста средствами HTML 5.0, а также создания текстовых и графических гиперссылок.

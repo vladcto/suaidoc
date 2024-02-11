@@ -129,6 +129,16 @@
 % Table
 \usepackage{longtable}
 \usepackage{booktabs}
+% = simple creation
+\newcommand{\sutable}[2]{
+\begin{table}[h!]
+\centering
+\captionsetup{justification=raggedleft, singlelinecheck=false}
+\caption{#1}
+{#2}
+\end{table}
+}
+
 
 % Table of content
 \usepackage{titlesec}
