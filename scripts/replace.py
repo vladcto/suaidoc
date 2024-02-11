@@ -39,7 +39,7 @@ data = {
     'year': year
 }
 
-with open('template.html', 'r', encoding='utf-8') as file:
+with open('template/template.html', 'r', encoding='utf-8') as file:
     html_content = file.read()
 
 for placeholder, value in data.items():
