@@ -9,6 +9,7 @@ python3 scripts/update_md.py $client_dir/$1 tmp/
 python3 scripts/replace.py $client_dir/$1 tmp/_intro.pdf
 pandoc tmp/_updated_md.md -o $client_dir/$2 \
 	--template=template/template.tex --pdf-engine=xelatex \
+	--include-in-header=template/header.tex \
 	--listings --pdf-engine-opt=-shell-escape
 
 rm -rf tmp

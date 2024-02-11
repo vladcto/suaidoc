@@ -73,9 +73,9 @@ student: Анонимный Н. Н.
 
 # ПРИЛОЖЕНИЕ <suaidoc-center>
 
-```html
+``` html
 <!DOCTYPE html>
-<html>sd
+<html>
   <head>
     <title>Уголок поэзии</title>
   </head>
@@ -153,5 +153,5 @@ student: Анонимный Н. Н.
   </body>
 
   <script src="assets/scripts/map_id_to_poetry.js"></script>
-</html>
+ </html>
 ```
