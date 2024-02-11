@@ -65,7 +65,7 @@ student: Анонимный Н. Н.
 
 ```html
 <!DOCTYPE html>
-<html>
+<html>sd
   <head>
     <title>Уголок поэзии</title>
   </head>
