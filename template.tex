@@ -1,0 +1,117 @@
+% Page 
+% = setup 
+\documentclass[a4paper]{article}
+\usepackage[14pt]{extsizes}
+\usepackage[T2A]{fontenc}
+\usepackage{ dsfont }
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+% = margins
+\usepackage[left=3cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+% = indents
+\usepackage{indentfirst}
+\setlength{\parindent}{1.25cm}
+% = spacing
+\usepackage{setspace}
+\onehalfspacing
+
+% Text
+% = parindent
+\setlength{\parindent}{1.25cm}
+
+% Title 
+% = space after title
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\normalsize\bfseries\sloppy}{\hspace{1.25cm}\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries\sloppy}{\hspace{1.25cm}\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\sloppy}{\hspace{1.25cm}\thesubsubsection}{1em}{}
+% = Adjust spacing
+\titlespacing*{\section}{0pt}{0.3\baselineskip}{0.3\baselineskip}
+\titlespacing*{\subsection}{0pt}{0.3\baselineskip}{0.3\baselineskip}
+\titlespacing*{\subsubsection}{0pt}{0.3\baselineskip}{0.3\baselineskip}
+% = breaks
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+% = special title
+\newcommand{\centertitle}[1]{
+  \titleformat*{\section}{\centering\normalsize\bfseries}
+  \section*{#1}
+  \titleformat*{\section}{\normalfont\normalsize\bfseries\sloppy}
+  \addcontentsline{toc}{section}{#1}
+}
+
+% List
+% = indents
+\usepackage{enumitem}
+\setlist[enumerate,1]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=1.25cm}
+\setlist[enumerate,2]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=2.5cm}
+\setlist[enumerate,3]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=3.75cm}
+\setlist[enumerate,4]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=5.0cm}
+
+\setlist[itemize,1]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=1.25cm}
+\setlist[itemize,2]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=2.5cm}
+\setlist[itemize,3]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=3.75cm}
+\setlist[itemize,4]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=5.0cm}
+
+% Сode
+\usepackage{xcolor}
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily,
+  numbers=left,                    
+  stepnumber=1,                   
+  numbersep=10pt,                  
+  tabsize=2,                      
+  gobble=2,                        
+  showspaces=false,                
+  showstringspaces=false,
+  xleftmargin=2.5em,              
+  breaklines=true,                
+  escapeinside={\%*}{*)},         
+  numbersep=15pt,                 
+  xleftmargin=25pt,              
+  backgroundcolor=\color{lightgray},  
+}
+
+% Images
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{caption}
+
+\DeclareCaptionLabelSeparator{mysep}{ - }
+\captionsetup[figure]{name=Рисунок, labelsep=mysep}
+\renewcommand{\thefigure}{\arabic{figure}}
+
+\newcommand{\image}[2]{
+    \begin{figure}[h]
+        \centering
+        \begin{adjustbox}{width=\textwidth,center}
+            \includegraphics[keepaspectratio]{#1}
+        \end{adjustbox}
+        \caption{#2}
+    \end{figure}
+}
+
+% Table of content
+\usepackage{titlesec}
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\hfill\normalsize\bfseries\MakeUppercase}
+\renewcommand{\cftaftertoctitle}{\hfill\mbox{}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+% Fonts
+% = family
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+\usepackage{pdfpages}
+\begin{document}
+\includepdf[pages={1}, fitpaper=true]{intro.pdf}
+\sloppy
+\tableofcontents
+$body$
+\end{document}
