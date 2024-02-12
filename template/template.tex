@@ -107,6 +107,12 @@
 \lst@RestoreCatcodes
 \makeatother
 
+% Hyperlinks
+\usepackage[hidelinks]{hyperref}
+\let\oldhref\href
+% = URI
+\renewcommand{\href}[2]{\oldhref{#1}{#2} (URI - \url{#1})}
+
 % Images
 \usepackage{graphicx}
 \usepackage{adjustbox}
@@ -156,7 +162,6 @@
 
 \usepackage{pdfpages}
 \begin{document}
-\includepdf[pages={1}, fitpaper=true]{tmp/_intro.pdf}
 \sloppy
 \tableofcontents
 $body$
