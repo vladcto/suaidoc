@@ -55,6 +55,8 @@
 \setlist[itemize,2]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=2.5cm}
 \setlist[itemize,3]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=3.75cm}
 \setlist[itemize,4]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=5.0cm}
+% = tightlist fix
+\def\tightlist{}
 
 % Сode
 \usepackage{xcolor}
@@ -117,18 +119,19 @@
 \usepackage{graphicx}
 \usepackage{adjustbox}
 \usepackage{caption}
+\usepackage{float}
 
 \DeclareCaptionLabelSeparator{mysep}{ - }
 \captionsetup[figure]{name=Рисунок, labelsep=mysep}
 \renewcommand{\thefigure}{\arabic{figure}}
 
 \newcommand{\image}[3]{
-    \begin{figure}[h]
+    \begin{figure}[H]
         \centering
         \begin{adjustbox}{width=#3\textwidth,center}
-            \includegraphics[keepaspectratio]{#1}
+            \includegraphics[keepaspectratio]{\detokenize{#1}}
         \end{adjustbox}
-        \caption{#2}
+        \caption{\detokenize{#2}}
         \label{fig:#2}
     \end{figure}
 }
