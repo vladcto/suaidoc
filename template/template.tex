@@ -116,13 +116,14 @@
 \captionsetup[figure]{name=Рисунок, labelsep=mysep}
 \renewcommand{\thefigure}{\arabic{figure}}
 
-\newcommand{\image}[2]{
+\newcommand{\image}[3]{
     \begin{figure}[h]
         \centering
-        \begin{adjustbox}{width=\textwidth,center}
+        \begin{adjustbox}{width=#3\textwidth,center}
             \includegraphics[keepaspectratio]{#1}
         \end{adjustbox}
         \caption{#2}
+        \label{fig:#2}
     \end{figure}
 }
 

@@ -4,8 +4,8 @@ import re
 
 
 def replace_relative_image_paths(md_content, markdown_directory):
-    # re !["<image_name>"](<relative_path>)
-    matches = re.finditer(r'!\["([^"]+)"\]\(([^)]+)\)', md_content)
+    # re !["<image_name>"](<relative_path>)<size>
+    matches = re.finditer(r'!\[(.*?)\]\((.*?)\)(?:<(.*?)>)?', md_content)
 
     for match in matches:
         image_name = match.group(1)
@@ -13,8 +13,16 @@ def replace_relative_image_paths(md_content, markdown_directory):
 
         original_image_path = os.path.join(markdown_directory, relative_path)
 
+        size_map = {
+            None: 0.95,
+            "t": 0.25,
+            "s": 0.35,
+            "m": 0.55,
+            "l": 0.85
+        }
+        size = str(size_map[match.group(3)])
         md_content = md_content.replace(match.group(0),
-                                        '\\image{' + original_image_path + '}{' + image_name + '}')
+                                        '\\image{' + original_image_path + '}{' + image_name + '}{'+size+'}')
 
     return md_content
 
