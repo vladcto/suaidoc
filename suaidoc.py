@@ -78,6 +78,7 @@ def check_suaidoc_updates() -> bool:
 
 @suaidoc.command()
 def update():
+    '''Обновить suaidoc до последней версии на GitHub.'''
     os.chdir(os.path.dirname(os.path.realpath(sys.argv[0])))
     if not shutil.which('git'):
         click.echo('Git не установлен.')
