@@ -88,6 +88,16 @@ def update():
         return
 
     try:
+        subprocess.check_output(['git', 'fetch'])
+
+        try:
+            subprocess.check_output(
+                ['git', 'diff', '--exit-code', 'origin'])
+        except subprocess.CalledProcessError:
+            print('Нет доступных обновлений suaidoc.')
+            return
+
+        print('Обновление suaidoc...')
         subprocess.check_output(['git', 'pull'])
         click.echo('suaidoc обновлен.')
     except subprocess.CalledProcessError:
