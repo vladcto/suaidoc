@@ -2,12 +2,11 @@ import pdfkit
 import frontmatter
 from datetime import datetime
 
-def convert_markdown_to_pdf(markdown_path, output_pdf_path, template_path):
-    with open(markdown_path, 'r', encoding='utf-8') as file:
-        md = file.read()
-
+def convert_markdown_to_pdf(markdown_file_path, output_pdf_path, template_path):
+    with open(markdown_file_path, mode='r', encoding='utf-8') as md_file:
+        md = md_file.read()
     meta_data = frontmatter.loads(md).metadata
-
+    
     if (meta_data.get('year')):
         year = str(meta_data.get('year', ''))
     else:

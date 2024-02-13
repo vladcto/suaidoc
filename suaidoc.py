@@ -27,6 +27,7 @@ def create(md_file, output):
         output = os.path.splitext(md_file)[0] + '.pdf'
     # Next we change the working directory so we need absolute path
     output = os.path.abspath(output)
+    md_file = os.path.abspath(md_file)
 
     script_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
     tmp_dir = os.path.join(script_dir, 'tmp')
@@ -36,40 +37,48 @@ def create(md_file, output):
         tmp_md_path = os.path.join(tmp_dir, 'tmp.md')
         tmp_pdf_path = os.path.join(tmp_dir, 'intro.pdf')
 
-        with open(tmp_md_path, "w+", encoding='utf-8') as tmp_md_file:
-            update_markdown_file(md_file, tmp_md_file)
-            html_template = os.path.join(
-                script_dir, 'templates', 'template.html')
-            convert_markdown_to_pdf(
-                tmp_md_path, tmp_pdf_path, html_template)
-
-            # Change working directory so LaTeX can find the pdf page
-            os.chdir(script_dir)
-            tex_template = os.path.join('templates', 'template.tex')
-            pandoc_convert = ['pandoc', tmp_md_path, '-o', output]
-            pandoc_template = ['--template=' +
-                               tex_template, '--pdf-engine=xelatex']
-            pandoc_listings = ['--listings',
-                               '--pdf-engine-opt=-shell-escape']
-            subprocess.run(
-                [*pandoc_convert, *pandoc_template, *pandoc_listings])
-            click.echo('PDF created in ' + output)
+        update_markdown_file(md_file, tmp_md_path)
+        html_template = os.path.join(
+            script_dir, 'templates', 'template.html')
+        convert_markdown_to_pdf(
+            tmp_md_path, tmp_pdf_path, html_template)
+        # Change working directory so LaTeX can find the pdf page
+        os.chdir(script_dir)
+        tex_template = os.path.join('templates', 'template.tex')
+        pandoc_convert = ['pandoc', tmp_md_path, '-o', output]
+        pandoc_template = ['--template=' +
+                           tex_template, '--pdf-engine=xelatex']
+        pandoc_listings = ['--listings',
+                           '--pdf-engine-opt=-shell-escape']
+        subprocess.run(
+            [*pandoc_convert, *pandoc_template, *pandoc_listings])
+        click.echo('PDF created in ' + output)
     finally:
         shutil.rmtree(tmp_dir)
 
 
 @suaidoc.command()
-@click.option('-t',
-              '--template',
-              default='lab',
-              help="Вид шаблона",
-              type=click.Choice(['lab']),
-              show_default=True)
 def template():
     """
     Создать Markdown-шаблон отчета в текущей директории.
     """
-    click.echo('Dropped the database')
+    file = open(os.getcwd() + '/report.md', "x")
+    file.write(
+        '''
+---
+departament: 12
+teacher: Амог У. С.
+teacher_title: Гений науки, к.г.н.
+discipline: Изучение влияния мандаринов
+variant: 3
+number: 12
+subject: Изучение влияния мандаринов на человека
+group: 4128
+student: Анонимный Н. Н.
+---
+        '''
+    )
+    file.close()
 
 
 def check_suaidoc_updates() -> bool:

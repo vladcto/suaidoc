@@ -39,14 +39,11 @@ def replace_center_titles(md_content):
     return md_content
 
 
-def update_markdown_file(markdown_path, output_file):
-    file_path = markdown_path
-    markdown_directory = os.path.dirname(os.path.abspath(file_path))
-
-    with open(file_path, 'r', encoding='utf-8') as file:
+def update_markdown_file(markdown_path, output_file_path):
+    markdown_directory = os.path.dirname(os.path.abspath(markdown_path))
+    with open(markdown_path, 'r', encoding='utf-8') as file:
         md = file.read()
-
     md = replace_relative_image_paths(md, markdown_directory)
     md = replace_center_titles(md)
-
-    output_file.write(md)
+    with open(output_file_path, mode='w+', encoding='utf-8') as output_file:
+        output_file.write(md)
