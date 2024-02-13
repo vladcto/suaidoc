@@ -27,7 +27,7 @@ def replace_relative_image_paths(md_content, markdown_directory):
 
 
 def replace_center_titles(md_content):
-    # re # <name> <suaidoc-center>
+    # re #<name><suaidoc-center>
     matches = re.finditer(r'# ([^\n]+) <suaidoc-center>', md_content)
 
     for match in matches:
@@ -39,11 +39,23 @@ def replace_center_titles(md_content):
     return md_content
 
 
+def wrap_cyrillic_in_mathit(md_content):
+    # re $$<cyrillic>$$ or $<cyrillic>$
+    latex_formula_pattern = re.compile(r"\$\$.*?\$\$|\$.*?\$")
+    cyrillic_pattern = re.compile(r"([а-яА-ЯёЁ]+)")
+
+    def replace_cyrillic_in_formula(formula):
+        return cyrillic_pattern.sub(r"\\mathit{\1}", formula.group())
+
+    return latex_formula_pattern.sub(replace_cyrillic_in_formula, md_content)
+
+
 def update_markdown_file(markdown_path, output_file_path):
     markdown_directory = os.path.dirname(os.path.abspath(markdown_path))
     with open(markdown_path, 'r', encoding='utf-8') as file:
         md = file.read()
     md = replace_relative_image_paths(md, markdown_directory)
     md = replace_center_titles(md)
+    md = wrap_cyrillic_in_mathit(md)
     with open(output_file_path, mode='w+', encoding='utf-8') as output_file:
         output_file.write(md)
