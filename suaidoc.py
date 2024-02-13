@@ -71,9 +71,9 @@ def check_suaidoc_updates() -> bool:
         subprocess.check_output(['git', 'fetch'])
         subprocess.check_output(
             ['git', 'diff', '--exit-code', 'origin/main'])
-        return False
-    except subprocess.CalledProcessError:
         return True
+    except subprocess.CalledProcessError:
+        return False
 
 
 @suaidoc.command()
