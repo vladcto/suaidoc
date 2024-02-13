@@ -66,6 +66,15 @@ def template():
     click.echo('Dropped the database')
 
 
+def check_suaidoc_updates() -> bool:
+    try:
+        subprocess.check_output(
+            ['git', 'diff', '--exit-code', 'origin'])
+        return False
+    except subprocess.CalledProcessError:
+        return True
+
+
 @suaidoc.command()
 def update():
     os.chdir(os.path.dirname(os.path.realpath(sys.argv[0])))
@@ -80,11 +89,17 @@ def update():
             'Это не Git-репозиторий. Для обновления нужно скачать новый архив.')
         return
 
+
     try:
         subprocess.check_output(['git', 'diff', '--exit-code'])
     except subprocess.CalledProcessError:
         click.echo(
             'В репозиторий внесены изменения. Если вы их не делали, то сделайте то-то')
+        return
+
+    if (check_suaidoc_updates()):
+        click.echo(
+            'Нет доступных обновлений suaidoc.')
         return
 
     try:
