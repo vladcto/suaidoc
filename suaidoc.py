@@ -69,7 +69,7 @@ def template():
 def check_suaidoc_updates() -> bool:
     try:
         subprocess.check_output(
-            ['git', 'diff', '--exit-code', 'origin'])
+            ['git', 'diff', '--exit-code', 'origin/main'])
         return False
     except subprocess.CalledProcessError:
         return True
