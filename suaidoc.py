@@ -112,7 +112,7 @@ def update():
         return
 
     try:
-        subprocess.check_output(['git', 'fetch', 'q'])
+        subprocess.check_output(['git', 'fetch', '-q'])
 
         print('Обновление suaidoc...')
         subprocess.check_output(['git', 'pull'])
