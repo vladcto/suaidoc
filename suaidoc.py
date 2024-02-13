@@ -10,6 +10,9 @@ from scripts.replace import convert_markdown_to_pdf
 
 @click.group()
 def suaidoc():
+    """
+    Утилита для создания отчетов по работам в ГУАП.
+    """
     pass
 
 
@@ -61,6 +64,39 @@ def create(md_file, output):
               show_default=True)
 def template():
     click.echo('Dropped the database')
+
+
+@suaidoc.command()
+def update():
+    os.chdir(os.path.dirname(os.path.realpath(sys.argv[0])))
+    if not shutil.which('git'):
+        click.echo('Git не установлен.')
+        return
+
+    try:
+        subprocess.check_output(['git', 'status'])
+    except subprocess.CalledProcessError:
+        click.echo(
+            'Это не Git-репозиторий. Для обновления нужно скачать новый архив.')
+        return
+
+    try:
+        subprocess.check_output(['git', 'diff', '--exit-code'])
+    except subprocess.CalledProcessError:
+        click.echo(
+            'В репозиторий внесены изменения. Если вы их не делали, то сделайте то-то')
+        return
+
+    try:
+        subprocess.check_output(['git', 'pull'])
+        click.echo('suaidoc обновлен.')
+    except subprocess.CalledProcessError:
+        click.echo('Ошибка при обновлении suaidoc.')
+        return
+
+    last_update = subprocess.check_output(
+        ['git', 'log', '-1', '--format=%cd']).decode('utf-8').strip()
+    click.echo(f'Последнее обновление: {last_update}')
 
 
 if __name__ == '__main__':
