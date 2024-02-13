@@ -1,4 +1,3 @@
-import argparse
 import os
 import re
 
@@ -40,25 +39,14 @@ def replace_center_titles(md_content):
     return md_content
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument('markdown_path', type=str,
-                    help='Path to the markdown file')
-parser.add_argument('updated_directory', type=str,
-                    help='Path to the markdown file')
+def update_markdown_file(markdown_path, output_file):
+    file_path = markdown_path
+    markdown_directory = os.path.dirname(os.path.abspath(file_path))
 
-args = parser.parse_args()
+    with open(file_path, 'r', encoding='utf-8') as file:
+        md = file.read()
 
-file_path = args.markdown_path
+    md = replace_relative_image_paths(md, markdown_directory)
+    md = replace_center_titles(md)
 
-markdown_directory = os.path.dirname(os.path.abspath(file_path))
-
-with open(file_path, 'r', encoding='utf-8') as file:
-    md = file.read()
-
-md = replace_relative_image_paths(md, markdown_directory)
-md = replace_center_titles(md)
-
-output_file_path = os.path.join(args.updated_directory, '_updated_md.md')
-
-with open(output_file_path, 'w', encoding='utf-8') as output_file:
     output_file.write(md)

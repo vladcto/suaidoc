@@ -126,6 +126,7 @@
 \renewcommand{\thefigure}{\arabic{figure}}
 
 \newcommand{\image}[3]{
+    % fix floating
     \begin{figure}[H]
         \centering
         \begin{adjustbox}{width=#3\textwidth,center}
@@ -165,7 +166,7 @@
 
 \usepackage{pdfpages}
 \begin{document}
-\includepdf[pages={1}, fitpaper=true]{tmp/_intro.pdf}
+\includepdf[pages={1}, fitpaper=true]{tmp/intro.pdf}
 \sloppy
 \tableofcontents
 $body$
