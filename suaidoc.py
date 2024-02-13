@@ -68,6 +68,7 @@ def template():
 
 def check_suaidoc_updates() -> bool:
     try:
+        subprocess.check_output(['git', 'fetch'])
         subprocess.check_output(
             ['git', 'diff', '--exit-code', 'origin/main'])
         return False
@@ -88,7 +89,6 @@ def update():
         click.echo(
             'Это не Git-репозиторий. Для обновления нужно скачать новый архив.')
         return
-
 
     try:
         subprocess.check_output(['git', 'diff', '--exit-code'])
