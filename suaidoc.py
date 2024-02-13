@@ -20,6 +20,9 @@ def suaidoc():
 @click.option('-o', '--output', default=None, help="Имя выходного файла")
 @click.argument('md_file', type=click.Path(exists=True))
 def create(md_file, output):
+    """
+    Создать PDF-отчет из MD_FILE.
+    """
     if (output is None):
         output = os.path.splitext(md_file)[0] + '.pdf'
     # Next we change the working directory so we need absolute path
@@ -59,10 +62,13 @@ def create(md_file, output):
 @click.option('-t',
               '--template',
               default='lab',
-              help="Создать md-шаблон в текущей директории",
+              help="Вид шаблона",
               type=click.Choice(['lab']),
               show_default=True)
 def template():
+    """
+    Создать Markdown-шаблон отчета в текущей директории.
+    """
     click.echo('Dropped the database')
 
 
