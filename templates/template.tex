@@ -147,13 +147,23 @@
 \usepackage{longtable}
 \usepackage{booktabs}
 % = simple creation
+\captionsetup[table]{
+  name=Таблица, 
+  labelsep=mysep,
+  justification=raggedleft,
+  singlelinecheck=false
+}
+
 \newcommand{\sutable}[2]{
 \begin{table}[h!]
-\centering
-\captionsetup{justification=raggedleft, singlelinecheck=false}
-\caption{#1}
-{#2}
-\end{table}
+    \centering
+    \caption{#1}
+    \label{table:#1}
+    \bgroup
+      \def\arraystretch{1.3}
+      {#2}
+    \egroup
+  \end{table}
 }
 
 
