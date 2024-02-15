@@ -146,12 +146,31 @@
 % Table
 \usepackage{longtable}
 \usepackage{booktabs}
+\usepackage{array}
 % = simple creation
 \captionsetup[table]{
   name=Таблица, 
   labelsep=mysep,
   justification=raggedleft,
   singlelinecheck=false
+}
+% = csv read
+\usepackage{pgfplotstable}
+\newcommand{\sucsvtable}[2]{
+\begin{table}[h]
+\caption{#2}
+\centering
+\renewcommand{\arraystretch}{1.5} 
+\pgfplotstabletypeset[
+  col sep=semicolon,
+  string type,
+  every head row/.style={before row=\hline,after row=\hline},
+  every column/.style={column type={|c}},
+  every last column/.style={column type={|c|}},
+  after row=\hline
+]{#1}
+\label{tab:#2}
+\end{table}
 }
 
 \newcommand{\sutable}[2]{
