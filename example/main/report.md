@@ -8,7 +8,6 @@ number: 0
 discipline: Отчеты ГУАП
 group: 0000
 student: И. О. Фамилия
-mypath: /Users/razrab-ytka/Documents/Projects/suaidoc/tmp/intro.pdf
 ---
 
 # Почему suaidoc?
