@@ -10,8 +10,6 @@ def replace_relative_image_paths(md_content, markdown_directory):
         image_name = match.group(1)
         relative_path = match.group(2)
 
-        original_image_path = os.path.join(markdown_directory, relative_path)
-
         size_map = {
             None: 0.95,
             "t": 0.25,
@@ -21,7 +19,7 @@ def replace_relative_image_paths(md_content, markdown_directory):
         }
         size = str(size_map[match.group(3)])
         md_content = md_content.replace(match.group(0),
-                                        '\\image{' + original_image_path + '}{' + image_name + '}{'+size+'}')
+                                        '\\image{' + relative_path + '}{' + image_name + '}{'+size+'}')
 
     return md_content
 

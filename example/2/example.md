@@ -8,6 +8,7 @@ number: 4
 subject: Пинание балды
 group: 4128
 student: Воробьев В.А.
+mypath: /Users/razrab-ytka/Documents/Projects/suaidoc/tmp/intro.pdf
 ---
 
 <!-- markdownlint-disable single-title -->

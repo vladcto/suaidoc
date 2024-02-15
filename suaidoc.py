@@ -25,9 +25,6 @@ def create(md_file, output):
     """
     if (output is None):
         output = os.path.splitext(md_file)[0] + '.pdf'
-    # Next we change the working directory so we need absolute path
-    output = os.path.abspath(output)
-    md_file = os.path.abspath(md_file)
 
     script_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
     tmp_dir = os.path.join(script_dir, 'tmp')
@@ -42,12 +39,11 @@ def create(md_file, output):
             script_dir, 'templates', 'template.html')
         convert_markdown_to_pdf(
             tmp_md_path, tmp_pdf_path, html_template)
-        # Change working directory so LaTeX can find the pdf page
-        os.chdir(script_dir)
-        tex_template = os.path.join('templates', 'template.tex')
+
+        tex_template = os.path.join(script_dir, 'templates', 'template.tex')
         pandoc_convert = ['pandoc', tmp_md_path, '-o', output]
-        pandoc_template = ['--template=' +
-                           tex_template, '--pdf-engine=xelatex']
+        pandoc_template = [
+            f'--template={tex_template}', '--pdf-engine=xelatex']
         pandoc_listings = ['--listings',
                            '--pdf-engine-opt=-shell-escape']
         subprocess.run(

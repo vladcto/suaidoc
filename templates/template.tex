@@ -62,10 +62,10 @@
 \setlist[enumerate,3]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=3.75cm}
 \setlist[enumerate,4]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=5.0cm}
 
-\setlist[itemize,1]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=1.25cm}
-\setlist[itemize,2]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=2.5cm}
-\setlist[itemize,3]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=3.75cm}
-\setlist[itemize,4]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=5.0cm}
+\setlist[itemize,1]{label=\textbullet, topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=1.25cm}
+\setlist[itemize,2]{label=\textbullet, topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=2.5cm}
+\setlist[itemize,3]{label=\textbullet, topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=3.75cm}
+\setlist[itemize,4]{label=\textbullet, topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=5.0cm}
 % = tightlist fix
 \def\tightlist{}
 
@@ -190,7 +190,6 @@
   \end{table}
 }
 
-
 % Table of content
 \usepackage{titlesec}
 \usepackage{tocloft}
@@ -200,8 +199,9 @@
 
 \usepackage{pdfpages}
 \begin{document}
-\includepdf[pages={1}, fitpaper=true]{tmp/intro.pdf}
+\includepdf[pages={1}, fitpaper=true]{$mypath$}
 \sloppy
 \tableofcontents
 $body$
 \end{document}
+
