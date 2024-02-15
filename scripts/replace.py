@@ -12,12 +12,12 @@ def convert_markdown_to_pdf(markdown_file_path, output_pdf_path, template_path):
     else:
         year = str(datetime.now().year)
     data = {
-        'department': str(meta_data.get('departament', '')),
+        'department': str(meta_data.get('department', '')),
         'teacher': str(meta_data.get('teacher', '')),
         'teacher_title': str(meta_data.get('teacher_title', '')),
-        'discipline': str(meta_data.get('discipline', '')),
+        'theme': str(meta_data.get('theme', '')),
         'variant': str(meta_data.get('variant', '')),
-        'subject': str(meta_data.get('subject', '')),
+        'discipline': str(meta_data.get('discipline', '')),
         'group': str(meta_data.get('group', '')),
         'student': str(meta_data.get('student', '')),
         'number': str(meta_data.get('number', '')),
