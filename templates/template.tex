@@ -201,7 +201,9 @@
 
 \usepackage{pdfpages}
 \begin{document}
-\includepdf[pages={1}, fitpaper=true]{$suaidocintropath$}
+$if(suaidocintropath)$
+  \includepdf[pages={1}, fitpaper=true]{$suaidocintropath$}
+$endif$
 \sloppy
 \tableofcontents
 $body$
