@@ -14,7 +14,7 @@ def replace_relative_image_paths(md_content, markdown_directory):
         size_map = {
             None: 0.95,
             "t": 0.25,
-            "s": 0.35,
+            "sm": 0.35,
             "m": 0.55,
             "l": 0.85
         }
@@ -40,13 +40,13 @@ def replace_center_titles(md_content):
 
 def wrap_cyrillic_in_mathit(md_content):
     # re $$<cyrillic>$$ or $<cyrillic>$
-    latex_formula_pattern = re.compile(r"\$\$.*?\$\$|\$.*?\$")
+    latex_formula_pattern = r"\$\$.*?\$\$|\$.*?\$"
     cyrillic_pattern = re.compile(r"([а-яА-ЯёЁ]+)")
 
     def replace_cyrillic_in_formula(formula):
         return cyrillic_pattern.sub(r"\\mathit{\1}", formula.group())
 
-    return latex_formula_pattern.sub(replace_cyrillic_in_formula, md_content)
+    return re.sub(latex_formula_pattern, replace_cyrillic_in_formula, md_content, flags=re.DOTALL)
 
 
 def add_equation_label(md_content):
@@ -60,7 +60,7 @@ def add_equation_label(md_content):
             return f"\\begin{{equation}}\n{equation}\n\\end{{equation}}"
 
     # re $$<math>$$\n<sueq*>
-    pattern = r"\$\$(.*?)\$\$\n(<sueq.*?>)"
+    pattern = r"\$\$([^\$]*?)\$\$\n(<sueq.*?>)"
     md_content = re.sub(pattern, replace_func, md_content, flags=re.DOTALL)
 
     return md_content

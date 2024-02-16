@@ -177,6 +177,9 @@
 \label{tab:#2}
 \end{table}
 }
+% = label 
+\let\oldcaption\caption
+\renewcommand{\caption}[1]{\oldcaption{#1}\label{tab:#1}}
 
 \newcommand{\sutable}[2]{
 \begin{table}[h!]
@@ -189,6 +192,10 @@
     \egroup
   \end{table}
 }
+
+% = Equation
+\usepackage{amsmath}
+\usepackage{amssymb}
 
 % Table of content
 \usepackage{titlesec}
