@@ -1,4 +1,6 @@
 # suaidoc
 tmp
 # Python
-**/__pycache__/
+**/__pycache__
+build
+suaidoc.egg-info
