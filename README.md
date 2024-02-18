@@ -4,6 +4,56 @@
 
 ## Установка
 
+Утилита является Python3 пакетом, поэтому для установки достаточно в терминале написать:
+
+```bash
+pip install suaidoc
+```
+
+или
+
+```bash
+pip3 install suaidoc
+```
+
+Далее перезагрузите терминал, и если все прошло хорошо, то при вызове `suaidoc` вы увидите:
+
+```text
+Usage: suaidoc [OPTIONS] COMMAND [ARGS]...
+<...>
+```
+
+Далее нужно установить утилиты, требуемые для работы:
+- _pandoc_ - для генерации MD в PDF
+- _wkhtmltopdf_ - для генерации титульной страницы.
+- _LaTeX (MiKTeX)_ - для придания стиля PDF страницы.
+
+Установка для конкретных ОС:
+
+### macOS
+
+Установите brew и напишите в терминал:
+
+```zsh
+brew install pandoc
+brew install wkhtmltopdf
+brew install --cask mactex-no-gui
+```
+
+Теперь все готово к написанию отчетов!
+
+### Windows
+
+
+
+Рекомендуется использовать choco для избежания проблем:
+
+```powershell
+choco install pandoc
+choco install wkhtmltopdf
+choco install miktex
+```
+
 ## Пример
 
 ## Команды
