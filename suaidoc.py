@@ -59,7 +59,7 @@ def template():
     """
     Создать Markdown-шаблон отчета в текущей директории.
     """
-    file = open(os.getcwd() + '/report.md', "x")
+    file = open(os.getcwd() + '/report.md', "x", encoding='utf-8')
     file.write(
         '''
 ---
