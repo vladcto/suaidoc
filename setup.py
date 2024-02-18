@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='suaidoc',
-    version='0.1.1',
+    version='0.1.3-15',
     py_modules=['suaidoc'],
     install_requires=[
         'click',

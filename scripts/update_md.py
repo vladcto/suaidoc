@@ -66,13 +66,11 @@ def add_equation_label(md_content):
     return md_content
 
 
-def add_intro_page_path(md_content):
-    script_dir = path.dirname(sys.argv[0])
-    intro_path = path.join(script_dir, 'tmp', 'intro.pdf')
-    return md_content.replace('---', f'---\nsuaidocintropath: {intro_path}', 1)
+def add_intro_page_path(md_content, pdf_template_path):
+    return md_content.replace('---', f'---\nsuaidocintropath: \detokenize{{{pdf_template_path}}}', 1)
 
 
-def update_markdown_file(markdown_path, output_file_path):
+def update_markdown_file(markdown_path, output_file_path, pdf_template_path):
     markdown_directory = path.dirname(path.abspath(markdown_path))
     with open(markdown_path, 'r', encoding='utf-8') as file:
         md = file.read()
@@ -80,6 +78,6 @@ def update_markdown_file(markdown_path, output_file_path):
     md = replace_center_titles(md)
     md = wrap_cyrillic_in_mathit(md)
     md = add_equation_label(md)
-    md = add_intro_page_path(md)
+    md = add_intro_page_path(md, pdf_template_path)
     with open(output_file_path, mode='w+', encoding='utf-8') as output_file:
         output_file.write(md)

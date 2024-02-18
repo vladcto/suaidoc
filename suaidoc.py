@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os
+import re
 import shutil
 import sys
 import click as click
@@ -7,6 +8,7 @@ import subprocess
 from scripts.update_md import update_markdown_file
 from scripts.replace import convert_markdown_to_pdf
 from importlib.resources import files
+import tempfile
 
 import templates
 
@@ -28,17 +30,17 @@ def create(md_file, output):
     if (output is None):
         output = os.path.splitext(md_file)[0] + '.pdf'
 
-    script_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
-    tmp_dir = os.path.join(script_dir, 'tmp')
+    tmp_dir = os.path.normpath(tempfile.mkdtemp()).replace("\\","/")
     html_template = files(templates).joinpath('template.html')
     tex_template = files(templates).joinpath('template.tex')
     os.makedirs(tmp_dir, exist_ok=True)
 
     try:
-        tmp_md_path = os.path.join(tmp_dir, 'tmp.md')
-        tmp_pdf_path = os.path.join(tmp_dir, 'intro.pdf')
-
-        update_markdown_file(md_file, tmp_md_path)
+        tmp_md_path = f'{tmp_dir}/tmp.md'
+        tmp_pdf_path = f'{tmp_dir}/intro.pdf'
+        click.echo(tmp_pdf_path)
+        
+        update_markdown_file(md_file, tmp_md_path, tmp_pdf_path)
         convert_markdown_to_pdf(
             tmp_md_path, tmp_pdf_path, html_template)
 
@@ -51,6 +53,7 @@ def create(md_file, output):
             [*pandoc_convert, *pandoc_template, *pandoc_listings])
         click.echo('PDF created in ' + output)
     finally:
+        click.echo("Clean")
         shutil.rmtree(tmp_dir)
 
 
