@@ -31,6 +31,9 @@
 \renewcommand{\emph}[1]{\textit{#1}}
 
 % Title 
+% = depth
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
 % = space after title
 \usepackage{titlesec}
 \titleformat{\section}
@@ -39,10 +42,13 @@
   {\normalfont\normalsize\bfseries\sloppy}{\hspace{1.25cm}\thesubsection}{1em}{}
 \titleformat{\subsubsection}
   {\normalfont\normalsize\bfseries\sloppy}{\hspace{1.25cm}\thesubsubsection}{1em}{}
+\titleformat{\paragraph}
+  {\normalfont\normalsize\bfseries\sloppy}{\hspace{1.25cm}\theparagraph}{1em}{}
 % = Adjust spacing
 \titlespacing*{\section}{0pt}{0.3\baselineskip}{0.3\baselineskip}
 \titlespacing*{\subsection}{0pt}{0.3\baselineskip}{0.3\baselineskip}
 \titlespacing*{\subsubsection}{0pt}{0.3\baselineskip}{0.3\baselineskip}
+\titlespacing*{\paragraph}{0pt}{0.3\baselineskip}{0.3\baselineskip}
 % = breaks
 \usepackage{titlesec}
 \newcommand{\sectionbreak}{\clearpage}
