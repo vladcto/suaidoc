@@ -1,5 +1,6 @@
-import os
+from os import path
 import re
+import sys
 
 
 def replace_relative_image_paths(md_content, markdown_directory):
@@ -10,18 +11,16 @@ def replace_relative_image_paths(md_content, markdown_directory):
         image_name = match.group(1)
         relative_path = match.group(2)
 
-        original_image_path = os.path.join(markdown_directory, relative_path)
-
         size_map = {
             None: 0.95,
             "t": 0.25,
-            "s": 0.35,
+            "sm": 0.35,
             "m": 0.55,
             "l": 0.85
         }
         size = str(size_map[match.group(3)])
         md_content = md_content.replace(match.group(0),
-                                        '\\image{' + original_image_path + '}{' + image_name + '}{'+size+'}')
+                                        '\\image{' + relative_path + '}{' + image_name + '}{'+size+'}')
 
     return md_content
 
@@ -41,13 +40,13 @@ def replace_center_titles(md_content):
 
 def wrap_cyrillic_in_mathit(md_content):
     # re $$<cyrillic>$$ or $<cyrillic>$
-    latex_formula_pattern = re.compile(r"\$\$.*?\$\$|\$.*?\$")
+    latex_formula_pattern = r"\$\$.*?\$\$|\$.*?\$"
     cyrillic_pattern = re.compile(r"([а-яА-ЯёЁ]+)")
 
     def replace_cyrillic_in_formula(formula):
         return cyrillic_pattern.sub(r"\\mathit{\1}", formula.group())
 
-    return latex_formula_pattern.sub(replace_cyrillic_in_formula, md_content)
+    return re.sub(latex_formula_pattern, replace_cyrillic_in_formula, md_content, flags=re.DOTALL)
 
 
 def add_equation_label(md_content):
@@ -61,19 +60,24 @@ def add_equation_label(md_content):
             return f"\\begin{{equation}}\n{equation}\n\\end{{equation}}"
 
     # re $$<math>$$\n<sueq*>
-    pattern = r"\$\$(.*?)\$\$\n(<sueq.*?>)"
+    pattern = r"\$\$([^\$]*?)\$\$\n(<sueq.*?>)"
     md_content = re.sub(pattern, replace_func, md_content, flags=re.DOTALL)
 
     return md_content
 
 
-def update_markdown_file(markdown_path, output_file_path):
-    markdown_directory = os.path.dirname(os.path.abspath(markdown_path))
+def add_intro_page_path(md_content, pdf_template_path):
+    return md_content.replace('---', f'---\nsuaidocintropath: \detokenize{{{pdf_template_path}}}', 1)
+
+
+def update_markdown_file(markdown_path, output_file_path, pdf_template_path):
+    markdown_directory = path.dirname(path.abspath(markdown_path))
     with open(markdown_path, 'r', encoding='utf-8') as file:
         md = file.read()
     md = replace_relative_image_paths(md, markdown_directory)
     md = replace_center_titles(md)
     md = wrap_cyrillic_in_mathit(md)
     md = add_equation_label(md)
+    md = add_intro_page_path(md, pdf_template_path)
     with open(output_file_path, mode='w+', encoding='utf-8') as output_file:
         output_file.write(md)

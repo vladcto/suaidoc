@@ -24,8 +24,16 @@
 % Text
 % = parindent
 \setlength{\parindent}{1.25cm}
+% = strikethrough
+\usepackage{ulem}
+\let\st\sout
+% = italic
+\renewcommand{\emph}[1]{\textit{#1}}
 
 % Title 
+% = depth
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
 % = space after title
 \usepackage{titlesec}
 \titleformat{\section}
@@ -34,10 +42,13 @@
   {\normalfont\normalsize\bfseries\sloppy}{\hspace{1.25cm}\thesubsection}{1em}{}
 \titleformat{\subsubsection}
   {\normalfont\normalsize\bfseries\sloppy}{\hspace{1.25cm}\thesubsubsection}{1em}{}
+\titleformat{\paragraph}
+  {\normalfont\normalsize\bfseries\sloppy}{\hspace{1.25cm}\theparagraph}{1em}{}
 % = Adjust spacing
 \titlespacing*{\section}{0pt}{0.3\baselineskip}{0.3\baselineskip}
 \titlespacing*{\subsection}{0pt}{0.3\baselineskip}{0.3\baselineskip}
 \titlespacing*{\subsubsection}{0pt}{0.3\baselineskip}{0.3\baselineskip}
+\titlespacing*{\paragraph}{0pt}{0.3\baselineskip}{0.3\baselineskip}
 % = breaks
 \usepackage{titlesec}
 \newcommand{\sectionbreak}{\clearpage}
@@ -52,15 +63,10 @@
 % List
 % = indents
 \usepackage{enumitem}
-\setlist[enumerate,1]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=1.25cm}
-\setlist[enumerate,2]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=2.5cm}
-\setlist[enumerate,3]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=3.75cm}
-\setlist[enumerate,4]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=5.0cm}
-
-\setlist[itemize,1]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=1.25cm}
-\setlist[itemize,2]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=2.5cm}
-\setlist[itemize,3]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=3.75cm}
-\setlist[itemize,4]{topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, wide=5.0cm}
+\setlist[itemize,enumerate,1]{label=\textbullet, topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, labelindent=\parindent, align=left, leftmargin=*}
+\setlist[itemize,enumerate,2]{label=\textbullet, topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, labelindent=\parindent, align=left, leftmargin=*}
+\setlist[itemize,enumerate,3]{label=\textbullet, topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, labelindent=\parindent, align=left, leftmargin=*}
+\setlist[itemize,enumerate,4]{label=\textbullet, topsep=0.25pt, partopsep=0.25pt, parsep=0pt, itemsep=0pt, labelindent=\parindent, align=left, leftmargin=*}
 % = tightlist fix
 \def\tightlist{}
 
@@ -172,6 +178,9 @@
 \label{tab:#2}
 \end{table}
 }
+% = label 
+\let\oldcaption\caption
+\renewcommand{\caption}[1]{\oldcaption{#1}\label{tab:#1}}
 
 \newcommand{\sutable}[2]{
 \begin{table}[h!]
@@ -185,6 +194,9 @@
   \end{table}
 }
 
+% = Equation
+\usepackage{amsmath}
+\usepackage{amssymb}
 
 % Table of content
 \usepackage{titlesec}
@@ -193,10 +205,14 @@
 \renewcommand{\cftaftertoctitle}{\hfill\mbox{}}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 
+\usepackage{grffile}
 \usepackage{pdfpages}
 \begin{document}
-\includepdf[pages={1}, fitpaper=true]{tmp/intro.pdf}
+$if(suaidocintropath)$
+  \includepdf[pages={1}, fitpaper=true]{$suaidocintropath$}
+$endif$
 \sloppy
 \tableofcontents
 $body$
 \end{document}
+
