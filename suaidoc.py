@@ -6,7 +6,9 @@ import click as click
 import subprocess
 from scripts.update_md import update_markdown_file
 from scripts.replace import convert_markdown_to_pdf
+from importlib.resources import files
 
+import templates
 
 @click.group()
 def suaidoc():
@@ -28,6 +30,8 @@ def create(md_file, output):
 
     script_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
     tmp_dir = os.path.join(script_dir, 'tmp')
+    html_template = files(templates).joinpath('template.html')
+    tex_template = files(templates).joinpath('template.tex')
     os.makedirs(tmp_dir, exist_ok=True)
 
     try:
@@ -35,12 +39,9 @@ def create(md_file, output):
         tmp_pdf_path = os.path.join(tmp_dir, 'intro.pdf')
 
         update_markdown_file(md_file, tmp_md_path)
-        html_template = os.path.join(
-            script_dir, 'templates', 'template.html')
         convert_markdown_to_pdf(
             tmp_md_path, tmp_pdf_path, html_template)
 
-        tex_template = os.path.join(script_dir, 'templates', 'template.tex')
         pandoc_convert = ['pandoc', tmp_md_path, '-o', output]
         pandoc_template = [
             f'--template={tex_template}', '--pdf-engine=xelatex']

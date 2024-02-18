@@ -1,0 +1,2 @@
+include templates/template.html
+include templates/template.tex
