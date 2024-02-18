@@ -3,4 +3,5 @@ tmp
 # Python
 **/__pycache__
 build
+dist
 suaidoc.egg-info
