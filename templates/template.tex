@@ -205,6 +205,12 @@
 \renewcommand{\cftaftertoctitle}{\hfill\mbox{}}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 
+% Links numeration
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+\counterwithin{equation}{section}
+
 \usepackage{grffile}
 \usepackage{pdfpages}
 \begin{document}
