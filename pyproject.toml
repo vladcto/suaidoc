@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "suaidoc"
+version = "0.2.5"
+dependencies = [
+	"click", 
+	"pdfkit", 
+	"python_frontmatter",
+]
+description = "CLI for generating reports from Markodwn according to GOST 7.32"
+authors = [
+	{name = "Vlad Vorobew", email = "razrab.ytka@gmail.com"}
+]
+maintainers = [
+	{name = "Vlad Vorobew", email = "razrab.ytka@gmail.com"}
+]
+readme = "README.md"
+license = {text = "MIT License"}
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Education",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Topic :: Utilities",
+  "Topic :: Text Processing :: Markup :: Markdown",
+  "Topic :: Software Development :: Documentation",
+]
+keywords = ["cli", "university", "gost", "docs", "pdf", "generating" ,"suai"]
+
+[tool.setuptools.packages.find]
+include = ["suaidoc*"]
+[tool.setuptools.package-data]
+"*" = ["*"]
+
+[project.urls]
+Homepage = "https://github.com/vladcto/suaidoc"
+Repository = "https://github.com/vladcto/suaidoc.git"
+Issues = "https://github.com/vladcto/suaidoc/issues"
+Changelog = "https://github.com/vladcto/suaidoc/blob/main/CHANGELOG.md"
+
+[project.scripts]
+suaidoc = "suaidoc.suaidoc:cli"
