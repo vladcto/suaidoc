@@ -1,0 +1,14 @@
+[project]
+name = "suaidoc"
+version = "0.2.3-beta1"
+dependencies = [
+	"click", 
+	"pdfkit", 
+	"python_frontmatter",
+]
+
+[tool.setuptools.packages.find]
+where = ["suaidoc"]
+
+[project.scripts]
+suaidoc = "suaidoc:suaidoc"

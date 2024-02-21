@@ -1,8 +1,6 @@
 #!/usr/bin/python
 import os
-import re
 import shutil
-import sys
 import click as click
 import subprocess
 from scripts.update_md import update_markdown_file
@@ -11,6 +9,7 @@ from importlib.resources import files
 import tempfile
 
 import templates
+
 
 @click.group()
 def suaidoc():
@@ -30,7 +29,7 @@ def create(md_file, output):
     if (output is None):
         output = os.path.splitext(md_file)[0] + '.pdf'
 
-    tmp_dir = os.path.normpath(tempfile.mkdtemp()).replace("\\","/")
+    tmp_dir = os.path.normpath(tempfile.mkdtemp()).replace("\\", "/")
     html_template = files(templates).joinpath('template.html')
     tex_template = files(templates).joinpath('template.tex')
     os.makedirs(tmp_dir, exist_ok=True)
@@ -39,7 +38,7 @@ def create(md_file, output):
         tmp_md_path = f'{tmp_dir}/tmp.md'
         tmp_pdf_path = f'{tmp_dir}/intro.pdf'
         click.echo(tmp_pdf_path)
-        
+
         update_markdown_file(md_file, tmp_md_path, tmp_pdf_path)
         convert_markdown_to_pdf(
             tmp_md_path, tmp_pdf_path, html_template)
@@ -79,60 +78,6 @@ student: Анонимный Н. Н.
         '''
     )
     file.close()
-
-
-def check_suaidoc_updates() -> bool:
-    try:
-        subprocess.check_output(['git', 'fetch'])
-        subprocess.check_output(
-            ['git', 'diff', '--exit-code', 'origin/main'])
-        return True
-    except subprocess.CalledProcessError:
-        return False
-
-
-@suaidoc.command()
-def update():
-    """
-    Обновить suaidoc до последней версии на GitHub.
-    """
-    os.chdir(os.path.dirname(os.path.realpath(sys.argv[0])))
-    if not shutil.which('git'):
-        click.echo('Git не установлен.')
-        return
-
-    try:
-        subprocess.check_output(['git', 'status'])
-    except subprocess.CalledProcessError:
-        click.echo(
-            'Это не Git-репозиторий. Для обновления нужно скачать новый архив.')
-        return
-
-    try:
-        subprocess.check_output(['git', 'diff', '--exit-code'])
-    except subprocess.CalledProcessError:
-        click.echo(
-            'В репозиторий внесены изменения. Если вы их не делали, то сделайте то-то')
-        return
-
-    if (check_suaidoc_updates()):
-        click.echo(
-            'Нет доступных обновлений suaidoc.')
-        return
-
-    try:
-        subprocess.check_output(['git', 'fetch', '-q'])
-
-        print('Обновление suaidoc...')
-        subprocess.check_output(['git', 'pull'])
-        click.echo('suaidoc обновлен.')
-    except subprocess.CalledProcessError:
-        click.echo('Ошибка при обновлении suaidoc.')
-        return
-
-    last_update = subprocess.check_output(
-        ['git', 'log', '-1', '--format=%cd']).decode('utf-8').strip()
-    click.echo(f'Последнее обновление: {last_update}')
 
 
 if __name__ == '__main__':
