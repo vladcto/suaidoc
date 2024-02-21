@@ -1,16 +1,16 @@
 [project]
 name = "suaidoc"
-version = "0.2.3-beta1"
+version = "0.2.4-beta1"
 dependencies = [
 	"click", 
 	"pdfkit", 
 	"python_frontmatter",
 ]
-description = "CLI for generating reports according to GOST 7.32 from Markodwn",
+description = "CLI for generating reports from Markodwn according to GOST 7.32"
 authors = [
 	{name = "Vlad Vorobew", email = "razrab.ytka@gmail.com"}
 ]
-mainteiners = [
+maintainers = [
 	{name = "Vlad Vorobew", email = "razrab.ytka@gmail.com"}
 ]
 readme = "README.md"
