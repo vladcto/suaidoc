@@ -3,23 +3,23 @@ import os
 import shutil
 import click as click
 import subprocess
-from scripts.update_md import update_markdown_file
-from scripts.replace import convert_markdown_to_pdf
+from suaidoc.scripts.update_md import update_markdown_file
+from suaidoc.scripts.replace import convert_markdown_to_pdf
 from importlib.resources import files
 import tempfile
 
-import templates
+import suaidoc.templates
 
 
 @click.group()
-def suaidoc():
+def cli():
     """
     Утилита для создания отчетов по работам в ГУАП.
     """
     pass
 
 
-@suaidoc.command()
+@cli.command()
 @click.option('-o', '--output', default=None, help="Имя выходного файла")
 @click.argument('md_file', type=click.Path(exists=True))
 def create(md_file, output):
@@ -30,8 +30,8 @@ def create(md_file, output):
         output = os.path.splitext(md_file)[0] + '.pdf'
 
     tmp_dir = os.path.normpath(tempfile.mkdtemp()).replace("\\", "/")
-    html_template = files(templates).joinpath('template.html')
-    tex_template = files(templates).joinpath('template.tex')
+    html_template = files(suaidoc.templates).joinpath('template.html')
+    tex_template = files(suaidoc.templates).joinpath('template.tex')
     os.makedirs(tmp_dir, exist_ok=True)
 
     try:
@@ -56,7 +56,7 @@ def create(md_file, output):
         shutil.rmtree(tmp_dir)
 
 
-@suaidoc.command()
+@cli.command()
 def template():
     """
     Создать Markdown-шаблон отчета в текущей директории.
@@ -81,4 +81,4 @@ student: Анонимный Н. Н.
 
 
 if __name__ == '__main__':
-    suaidoc()
+    cli()

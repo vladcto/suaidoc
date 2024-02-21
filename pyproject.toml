@@ -1,6 +1,10 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "suaidoc"
-version = "0.2.4-beta1"
+version = "0.2.5"
 dependencies = [
 	"click", 
 	"pdfkit", 
@@ -27,15 +31,16 @@ classifiers = [
 ]
 keywords = ["cli", "university", "gost", "docs", "pdf", "generating" ,"suai"]
 
+[tool.setuptools.packages.find]
+include = ["suaidoc*"]
+[tool.setuptools.package-data]
+"*" = ["*"]
+
 [project.urls]
 Homepage = "https://github.com/vladcto/suaidoc"
 Repository = "https://github.com/vladcto/suaidoc.git"
 Issues = "https://github.com/vladcto/suaidoc/issues"
 Changelog = "https://github.com/vladcto/suaidoc/blob/main/CHANGELOG.md"
 
-
-[tool.setuptools.packages.find]
-where = ["suaidoc"]
-
 [project.scripts]
-suaidoc = "suaidoc:suaidoc"
+suaidoc = "suaidoc.suaidoc:cli"
