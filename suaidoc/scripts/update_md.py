@@ -1,6 +1,5 @@
 from os import path
 import re
-import sys
 
 
 def replace_relative_image_paths(md_content, markdown_directory):
@@ -57,18 +56,25 @@ def wrap_equation_with_label(md_content):
     pattern = r"Equation: ([^\n]*?)\n\n\$\$([\s\S]*?)\$\$"
 
     def replacement(match):
-        print(match)
         label = match.group(1)
         equation = match.group(2)
         return f"\\begin{{equation}}\\begin{{gathered}}{equation}\\label{{eq:{label}}}\n\\end{{gathered}}\\end{{equation}}"
 
     return re.sub(pattern, replacement, md_content)
 
+def wrap_simplify_equation(md_content):
+    # re
+    # Simplify
+    # 
+    # $$<equation>$$
+    pattern = r"Simplify\n\n\$\$([\s\S]*?)\$\$"
+    replacement = r"\\begin{equation*}\\begin{gathered}\1\n\\end{gathered}\\end{equation*}"
+    return re.sub(pattern, replacement, md_content)
 
 
 def wrap_remain_equations(md_content):
     pattern = r'\$\$(.*?)\$\$'
-    replacement = r'\\begin{equation}\n\\begin{gathered}\1\\end{gathered}\n\\end{equation}'
+    replacement = r'\\begin{equation}\\begin{gathered}\1\\end{gathered}\\end{equation}'
     return re.sub(pattern, replacement, md_content, flags=re.DOTALL)
 
 
@@ -84,6 +90,7 @@ def update_markdown_file(markdown_path, output_file_path, pdf_template_path):
     md = replace_center_titles(md)
     md = wrap_cyrillic_in_mathit(md)
     md = wrap_equation_with_label(md)
+    md = wrap_simplify_equation(md)
     md = wrap_remain_equations(md)
     md = add_intro_page_path(md, pdf_template_path)
     with open(output_file_path, mode='w+', encoding='utf-8') as output_file:
