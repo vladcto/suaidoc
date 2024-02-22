@@ -20,7 +20,7 @@ def replace_relative_image_paths(md_content, markdown_directory):
         }
         size = str(size_map[match.group(3)])
         md_content = md_content.replace(match.group(0),
-                                        '\\image{' + relative_path + '}{' + image_name + '}{'+size+'}')
+                                        f'\\image{{{relative_path}}}{{{image_name}}}{{{size}}}')
 
     return md_content
 
@@ -49,24 +49,24 @@ def wrap_cyrillic_in_mathit(md_content):
     return re.sub(latex_formula_pattern, replace_cyrillic_in_formula, md_content, flags=re.DOTALL)
 
 
-# def add_equation_label(md_content):
-#     def replace_func(match):
-#         equation = match.group(1)
-#         sueq_tag = match.group(2)
-#         id_match = re.search(r'id="(.*?)"', sueq_tag)
-#         if id_match:
-#             return f"\\begin{{equation}}\n{equation}\n\\label{{eq:{id_match.group(1)}}}\n\\end{{equation}}"
-#         else:
-#             return f"\\begin{{equation}}\n{equation}\n\\end{{equation}}"
+def wrap_equation_with_label(md_content):
+    # re
+    # Equation: text
+    # 
+    # $$<equation>$$
+    pattern = r"Equation: ([^\n]*?)\n\n\$\$([\s\S]*?)\$\$"
 
-#     # re $$<math>$$\n<sueq*>
-#     pattern = r"\$\$([^\$]*?)\$\$\n(<sueq.*?>)"
-#     md_content = re.sub(pattern, replace_func, md_content, flags=re.DOTALL)
+    def replacement(match):
+        print(match)
+        label = match.group(1)
+        equation = match.group(2)
+        return f"\\begin{{equation}}\\begin{{gathered}}{equation}\\label{{eq:{label}}}\n\\end{{gathered}}\\end{{equation}}"
 
-#     return md_content
+    return re.sub(pattern, replacement, md_content)
 
 
-def wrap_equations(md_content):
+
+def wrap_remain_equations(md_content):
     pattern = r'\$\$(.*?)\$\$'
     replacement = r'\\begin{equation}\n\\begin{gathered}\1\\end{gathered}\n\\end{equation}'
     return re.sub(pattern, replacement, md_content, flags=re.DOTALL)
@@ -83,7 +83,8 @@ def update_markdown_file(markdown_path, output_file_path, pdf_template_path):
     md = replace_relative_image_paths(md, markdown_directory)
     md = replace_center_titles(md)
     md = wrap_cyrillic_in_mathit(md)
-    md = wrap_equations(md)
+    md = wrap_equation_with_label(md)
+    md = wrap_remain_equations(md)
     md = add_intro_page_path(md, pdf_template_path)
     with open(output_file_path, mode='w+', encoding='utf-8') as output_file:
         output_file.write(md)
