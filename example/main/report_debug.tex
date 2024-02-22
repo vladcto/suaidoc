@@ -16,8 +16,6 @@
 \onehalfspacing
 
 \usepackage{etoolbox}
-\usepackage[square,sort,comma,numbers]{natbib}
-\bibliographystyle{plainnat}
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
 \newenvironment{CSLReferences}[2] % #1 is the sectioning level
@@ -27,6 +25,8 @@
   \setlength{\itemindent}{-\leftmargin}}%
   \item\relax}
  {\endlist}
+\newcommand{\CSLLeftMargin}[1]{\item[#1]}
+\newcommand{\CSLRightInline}[1]{#1}
 \newcommand{\citeproctext}[1]{#1}
 
 % Fonts
@@ -234,7 +234,7 @@
 \usepackage{grffile}
 \usepackage{pdfpages}
 \begin{document}
-\includepdf[pages={1}, fitpaper=true]{\detokenize{/var/folders/mr/twkc4jg14f3cl5vr1lh0kgl80000gn/T/tmp9xzxzodo/intro.pdf}}
+\includepdf[pages={1}, fitpaper=true]{\detokenize{/var/folders/mr/twkc4jg14f3cl5vr1lh0kgl80000gn/T/tmpqkoz_x8p/intro.pdf}}
 \sloppy
 \tableofcontents
 \section{Почему suaidoc?}\label{ux43fux43eux447ux435ux43cux443-suaidoc}
@@ -593,15 +593,26 @@ a_{12} & a_{22} \\
 Вы можете включить код из файла, используя синтаксис включения файлов
 Markdown. Просто укажите путь к файлу в круглых скобках после ключевого
 слова \passthrough{\lstinline!include!}. Код из файла будет вставлен в
-документ и отформатирован как блок кода (Doe 2021).
+документ и отформатирован как блок кода \citep{ref-ref1}.
 
 \centertitle{Использованные источники}
 
 \phantomsection\label{refs}
-\begin{CSLReferences}{1}{0}
+\begin{CSLReferences}{0}{0}
+\bibitem[\citeproctext]{ref-doe2021}
+\CSLLeftMargin{{[}1{]} }%
+\CSLRightInline{Doe, {``An example paper,''} \emph{Journal of Example
+Studies}, vol. 1, no. 1, pp. 1--10, 2021.}
+
+\bibitem[\citeproctext]{ref-doe2022}
+\CSLLeftMargin{{[}2{]} }%
+\CSLRightInline{D. Sew, {``An example paper,''} \emph{Journal of Example
+Studies}, vol. 1, no. 1, pp. 1--10, 2021.}
+
 \bibitem[\citeproctext]{ref-ref1}
-Doe, John. 2021. {``An Example Paper.''} \emph{Journal of Example
-Studies} 1 (1): 1--10.
+\CSLLeftMargin{{[}3{]} }%
+\CSLRightInline{J. Doe, {``An example paper,''} \emph{Journal of Example
+Studies}, vol. 1, no. 1, pp. 1--10, 2021.}
 
 \end{CSLReferences}
 \end{document}

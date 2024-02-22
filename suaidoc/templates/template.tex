@@ -17,7 +17,7 @@
 
 \usepackage{etoolbox}
 \usepackage[square,sort,comma,numbers]{natbib}
-\bibliographystyle{plainnat}
+\bibliographystyle{unsrt}
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
 \newenvironment{CSLReferences}[2] % #1 is the sectioning level
@@ -27,6 +27,8 @@
   \setlength{\itemindent}{-\leftmargin}}%
   \item\relax}
  {\endlist}
+\newcommand{\CSLLeftMargin}[1]{\item[#1]}
+\newcommand{\CSLRightInline}[1]{#1}
 \newcommand{\citeproctext}[1]{#1}
 
 % Fonts
