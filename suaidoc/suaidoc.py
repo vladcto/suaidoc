@@ -49,13 +49,13 @@ def create(md_file, output, debug):
         convert_markdown_to_pdf(
             tmp_md_path, tmp_pdf_path, html_template)
 
-        pandoc_convert = ['pandoc', tmp_md_path, '-o', output]
+        pandoc_convert = ["pandoc", tmp_md_path, "--citeproc", "-so", output]
         pandoc_template = [
             f'--template={tex_template}', '--pdf-engine=xelatex']
         pandoc_listings = ['--listings',
                            '--pdf-engine-opt=-shell-escape']
-        subprocess.run(
-            [*pandoc_convert, *pandoc_template, *pandoc_listings])
+
+        subprocess.run([*pandoc_convert, *pandoc_template, *pandoc_listings])
         click.echo('File created in ' + os.path.abspath(output))
     finally:
         shutil.rmtree(tmp_dir)

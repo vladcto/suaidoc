@@ -15,6 +15,20 @@
 \usepackage{setspace}
 \onehalfspacing
 
+\usepackage{etoolbox}
+\usepackage[square,sort,comma,numbers]{natbib}
+\bibliographystyle{plainnat}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newenvironment{CSLReferences}[2] % #1 is the sectioning level
+ {\list{}{\setlength{\leftmargin}{\cslhangindent}\setlength{\parsep}{0pt}\setlength{\topsep}{0pt}%
+  \ifnumgreater{#1}{0}{\setlength{\itemsep}{0pt}}{}%
+  \setlength{\labelsep}{0pt}\setlength{\labelwidth}{0pt}%
+  \setlength{\itemindent}{-\leftmargin}}%
+  \item\relax}
+ {\endlist}
+\newcommand{\citeproctext}[1]{#1}
+
 % Fonts
 % = family
 \usepackage{fontspec}
@@ -221,7 +235,7 @@
 \usepackage{pdfpages}
 \begin{document}
 $if(suaidocintropath)$
-  \includepdf[pages={1}, fitpaper=true]{$suaidocintropath$}
+\includepdf[pages={1}, fitpaper=true]{$suaidocintropath$}
 $endif$
 \sloppy
 \tableofcontents

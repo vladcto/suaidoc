@@ -8,6 +8,21 @@ number: 0
 discipline: Отчеты ГУАП
 group: 0000
 student: И. О. Фамилия
+nocite: |
+    @*
+references:
+- id: ref1
+  title: An example paper
+  author:
+  - family: Doe
+    given: John
+  container-title: Journal of Example Studies
+  volume: '1'
+  issue: '1'
+  page: '1-10'
+  type: article-journal
+  issued:
+    year: 2021
 ---
 
 # Почему suaidoc?
@@ -179,12 +194,12 @@ Table: ширина тегов \label{1}
 Equation: Пример
 
 $$
-\mathbf{A} = 
+\mathbf{A} =
 \begin{bmatrix}
 a_{11} & a_{12} \\
 a_{21} & a_{22} \\
 \end{bmatrix}, \quad
-\mathbf{A}^T = 
+\mathbf{A}^T =
 \begin{bmatrix}
 a_{11} & a_{21} \\
 a_{12} & a_{22} \\
@@ -238,4 +253,6 @@ $$2+2=5$$
 
 ## Листинг из файла
 
-Вы можете включить код из файла, используя синтаксис включения файлов Markdown. Просто укажите путь к файлу в круглых скобках после ключевого слова `include`. Код из файла будет вставлен в документ и отформатирован как блок кода.
+Вы можете включить код из файла, используя синтаксис включения файлов Markdown. Просто укажите путь к файлу в круглых скобках после ключевого слова `include`. Код из файла будет вставлен в документ и отформатирован как блок кода \citep{ref-ref1}.
+
+# Использованные источники <suaidoc-center>
