@@ -2,7 +2,7 @@ from os import path
 import re
 
 
-def replace_relative_image_paths(md_content, markdown_directory):
+def replace_relative_image_paths(md_content):
     # re !["<image_name>"](<relative_path>)<size>
     matches = re.finditer(r'!\[(.*?)\]\((.*?)\)(?:<(.*?)>)?', md_content)
 
@@ -89,10 +89,9 @@ def add_intro_page_path(md_content, pdf_template_path):
 
 
 def update_markdown_file(markdown_path, output_file_path, pdf_template_path):
-    markdown_directory = path.dirname(path.abspath(markdown_path))
     with open(markdown_path, 'r', encoding='utf-8') as file:
         md = file.read()
-    md = replace_relative_image_paths(md, markdown_directory)
+    md = replace_relative_image_paths(md)
     md = replace_center_titles(md)
 
     # math
