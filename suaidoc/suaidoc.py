@@ -20,12 +20,18 @@ def cli():
 
 
 @cli.command()
-@click.option('-o', '--output', default=None, help="Имя выходного файла")
 @click.argument('md_file', type=click.Path(exists=True))
-def create(md_file, output):
+@click.option('-o', '--output', default=None, help="Имя выходного файла")
+@click.option('-d', '--debug', is_flag=True, help="Включить конвертирование .md в .tex")
+def create(md_file, output, debug):
     """
     Создать PDF-отчет из MD_FILE.
     """
+    if (debug):
+        if (output is not None):
+            click.echo("--output are ignored with the --debug flag.")
+        output = os.path.splitext(md_file)[0] + '_debug.tex'
+
     if (output is None):
         output = os.path.splitext(md_file)[0] + '.pdf'
 
@@ -50,9 +56,8 @@ def create(md_file, output):
                            '--pdf-engine-opt=-shell-escape']
         subprocess.run(
             [*pandoc_convert, *pandoc_template, *pandoc_listings])
-        click.echo('PDF created in ' + output)
+        click.echo('File created in ' + os.path.abspath(output))
     finally:
-        click.echo("Clean")
         shutil.rmtree(tmp_dir)
 
 

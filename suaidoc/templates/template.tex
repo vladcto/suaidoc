@@ -125,6 +125,7 @@
 \usepackage[hidelinks]{hyperref}
 \let\oldhref\href
 % = URI
+\usepackage{seqsplit}
 \renewcommand{\href}[2]{\oldhref{#1}{#2} (URI - \url{#1})}
 
 % Images
@@ -194,9 +195,14 @@
   \end{table}
 }
 
-% = Equation
+% Equation
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{etoolbox}
+% = line margin 
+% TODO: GOST
+\BeforeBeginEnvironment{equation}{\vspace{-0.6\baselineskip}}
+\BeforeBeginEnvironment{equation*}{\vspace{-0.6\baselineskip}}
 
 % Table of content
 \usepackage{titlesec}
