@@ -48,33 +48,39 @@ def wrap_cyrillic_in_mathit(md_content):
     return re.sub(latex_formula_pattern, replace_cyrillic_in_formula, md_content, flags=re.DOTALL)
 
 
+def latex_equation(content, numerate=True):
+    equation = 'equation' if numerate else "equation*"
+    return (f"\\begin{{{equation}}}\\begin{{gathered}}"
+            f"{content}\n"
+            f"\\end{{gathered}}\\end{{{equation}}}")
+
+
 def wrap_equation_with_label(md_content):
-    # re
-    # Equation: text
-    # 
-    # $$<equation>$$
     pattern = r"Equation: ([^\n]*?)\n\n\$\$([\s\S]*?)\$\$"
 
     def replacement(match):
         label = match.group(1)
         equation = match.group(2)
-        return f"\\begin{{equation}}\\begin{{gathered}}{equation}\\label{{eq:{label}}}\n\\end{{gathered}}\\end{{equation}}"
+        return latex_equation(content=equation+f"\\label{{eq:{label}}}")
 
     return re.sub(pattern, replacement, md_content)
 
+
 def wrap_simplify_equation(md_content):
-    # re
-    # Simplify
-    # 
-    # $$<equation>$$
     pattern = r"Simplify\n\n\$\$([\s\S]*?)\$\$"
-    replacement = r"\\begin{equation*}\\begin{gathered}\1\n\\end{gathered}\\end{equation*}"
+
+    def replacement(match):
+        return latex_equation(content=match.group(1), numerate=False)
+
     return re.sub(pattern, replacement, md_content)
 
 
 def wrap_remain_equations(md_content):
     pattern = r'\$\$(.*?)\$\$'
-    replacement = r'\\begin{equation}\\begin{gathered}\1\\end{gathered}\\end{equation}'
+
+    def replacement(match):
+        return latex_equation(content=match.group(1))
+
     return re.sub(pattern, replacement, md_content, flags=re.DOTALL)
 
 
@@ -88,10 +94,13 @@ def update_markdown_file(markdown_path, output_file_path, pdf_template_path):
         md = file.read()
     md = replace_relative_image_paths(md, markdown_directory)
     md = replace_center_titles(md)
+
+    # math
     md = wrap_cyrillic_in_mathit(md)
     md = wrap_equation_with_label(md)
     md = wrap_simplify_equation(md)
     md = wrap_remain_equations(md)
+
     md = add_intro_page_path(md, pdf_template_path)
     with open(output_file_path, mode='w+', encoding='utf-8') as output_file:
         output_file.write(md)
