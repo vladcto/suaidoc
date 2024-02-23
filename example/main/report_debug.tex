@@ -6,6 +6,7 @@
 \usepackage{ dsfont }
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
+\usepackage{csquotes}
 % = margins
 \usepackage[left=3cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 % = indents
@@ -15,18 +16,20 @@
 \usepackage{setspace}
 \onehalfspacing
 
-\usepackage{etoolbox}
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newenvironment{CSLReferences}[2] % #1 is the sectioning level
- {\list{}{\setlength{\leftmargin}{\cslhangindent}\setlength{\parsep}{0pt}\setlength{\topsep}{0pt}%
-  \ifnumgreater{#1}{0}{\setlength{\itemsep}{0pt}}{}%
-  \setlength{\labelsep}{0pt}\setlength{\labelwidth}{0pt}%
-  \setlength{\itemindent}{-\leftmargin}}%
-  \item\relax}
- {\endlist}
-\newcommand{\CSLLeftMargin}[1]{\item[#1]}
-\newcommand{\CSLRightInline}[1]{#1}
+\usepackage{biblatex}
+\newenvironment{CSLReferences}[2] % #1 is the starting number, #2 is (hanging)indent
+{\list
+    {}
+    {\setlength{\topsep}{0pt}%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\partopsep}{0pt}%
+    \setlength{\leftmargin}{\bibhang}%
+    \setlength{\itemindent}{-\leftmargin}%
+    }
+    \item}
+{\endlist}
+
 \newcommand{\citeproctext}[1]{#1}
 
 % Fonts
@@ -234,7 +237,7 @@
 \usepackage{grffile}
 \usepackage{pdfpages}
 \begin{document}
-\includepdf[pages={1}, fitpaper=true]{\detokenize{/var/folders/mr/twkc4jg14f3cl5vr1lh0kgl80000gn/T/tmpqkoz_x8p/intro.pdf}}
+\includepdf[pages={1}, fitpaper=true]{\detokenize{/var/folders/mr/twkc4jg14f3cl5vr1lh0kgl80000gn/T/tmp5jxoi48y/intro.pdf}}
 \sloppy
 \tableofcontents
 \section{Почему suaidoc?}\label{ux43fux43eux447ux435ux43cux443-suaidoc}
@@ -593,26 +596,17 @@ a_{12} & a_{22} \\
 Вы можете включить код из файла, используя синтаксис включения файлов
 Markdown. Просто укажите путь к файлу в круглых скобках после ключевого
 слова \passthrough{\lstinline!include!}. Код из файла будет вставлен в
-документ и отформатирован как блок кода \citep{ref-ref1}.
+документ и отформатирован как блок кода \cite{ref-ref1}.
 
-\centertitle{Использованные источники}
+\centertitle{ИСПОЛЬЗОВАННЫЕ ИСТОЧНИКИ}
 
 \phantomsection\label{refs}
-\begin{CSLReferences}{0}{0}
-\bibitem[\citeproctext]{ref-doe2021}
-\CSLLeftMargin{{[}1{]} }%
-\CSLRightInline{Doe, {``An example paper,''} \emph{Journal of Example
-Studies}, vol. 1, no. 1, pp. 1--10, 2021.}
-
-\bibitem[\citeproctext]{ref-doe2022}
-\CSLLeftMargin{{[}2{]} }%
-\CSLRightInline{D. Sew, {``An example paper,''} \emph{Journal of Example
-Studies}, vol. 1, no. 1, pp. 1--10, 2021.}
-
+\begin{CSLReferences}{0}{1}
 \bibitem[\citeproctext]{ref-ref1}
-\CSLLeftMargin{{[}3{]} }%
-\CSLRightInline{J. Doe, {``An example paper,''} \emph{Journal of Example
-Studies}, vol. 1, no. 1, pp. 1--10, 2021.}
+1. Doe J. An example paper // Journal of Example Studies. 2021. № 1 (1).
+C. 1--10.
 
 \end{CSLReferences}
+
+\centertitle{ИСПОЛЬЗОВАННЫЕ ИСТОЧНИКИ}
 \end{document}

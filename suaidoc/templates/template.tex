@@ -6,6 +6,7 @@
 \usepackage{ dsfont }
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
+\usepackage{csquotes}
 % = margins
 \usepackage[left=3cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 % = indents
@@ -15,20 +16,23 @@
 \usepackage{setspace}
 \onehalfspacing
 
-\usepackage{etoolbox}
 \usepackage[square,sort,comma,numbers]{natbib}
-\bibliographystyle{unsrt}
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newenvironment{CSLReferences}[2] % #1 is the sectioning level
- {\list{}{\setlength{\leftmargin}{\cslhangindent}\setlength{\parsep}{0pt}\setlength{\topsep}{0pt}%
-  \ifnumgreater{#1}{0}{\setlength{\itemsep}{0pt}}{}%
-  \setlength{\labelsep}{0pt}\setlength{\labelwidth}{0pt}%
-  \setlength{\itemindent}{-\leftmargin}}%
-  \item\relax}
- {\endlist}
-\newcommand{\CSLLeftMargin}[1]{\item[#1]}
-\newcommand{\CSLRightInline}[1]{#1}
+\setlength{\bibhang}{0pt}
+\makeatletter
+\renewcommand{\@biblabel}[1]{}
+\makeatother
+\newenvironment{CSLReferences}[2] % #1 is the starting number, #2 is (hanging)indent
+{\list
+    {}
+    {\setlength{\topsep}{0pt}%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\partopsep}{0pt}%
+    \setlength{\leftmargin}{\bibhang}%
+    \setlength{\itemindent}{-\leftmargin}%
+    }
+    \item}
+{\endlist}
 \newcommand{\citeproctext}[1]{#1}
 
 % Fonts

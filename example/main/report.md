@@ -23,7 +23,18 @@ references:
   type: article-journal
   issued:
     year: 2021
-bibliography: a.bib
+- id: ref2
+  title: An example paper
+  author:
+  - family: Doe
+    given: John
+  container-title: Journal of Example Studies
+  volume: '1'
+  issue: '1'
+  page: '1-10'
+  type: article-journal
+  issued:
+    year: 2021
 csl: ieee.csl
 ---
 
@@ -255,7 +266,7 @@ $$2+2=5$$
 
 ## Листинг из файла
 
-Вы можете включить код из файла, используя синтаксис включения файлов Markdown. Просто укажите путь к файлу в круглых скобках после ключевого слова `include`. Код из файла будет вставлен в документ и отформатирован как блок кода \citep{ref-ref1}.
+Вы можете включить код из файла, используя синтаксис включения файлов Markdown. Просто укажите путь к файлу в круглых скобках после ключевого слова `include`. Код из файла будет вставлен в документ и отформатирован как блок кода \cite{ref-ref1}.
 
 # ИСПОЛЬЗОВАННЫЕ ИСТОЧНИКИ <suaidoc-center>
 
