@@ -18,21 +18,24 @@
 
 \usepackage[square,sort,comma,numbers]{natbib}
 \setlength{\bibhang}{0pt}
+% \makeatletter
+% \renewcommand{\@biblabel}[1]{}
+% \makeatother
 \makeatletter
-\renewcommand{\@biblabel}[1]{}
+\newcounter{bibcounter}
+\@ifundefined{CSLReferences}{%
+  \newenvironment{CSLReferences}[2] % #1 is the sectioning level
+   {\list{}%
+    {\setlength{\leftmargin}{\bibindent}%
+     \setlength{\itemindent}{-\leftmargin}%
+     \setlength{\itemsep}{\bibsep}%
+     \setlength{\parsep}{\z@}}}
+   {\endlist}
+}{}
+\let\oldbibitem\bibitem
+\renewcommand{\bibitem}[2][]{\item[\stepcounter{bibcounter}\thebibcounter]\oldbibitem{#2}}
 \makeatother
-\newenvironment{CSLReferences}[2] % #1 is the starting number, #2 is (hanging)indent
-{\list
-    {}
-    {\setlength{\topsep}{0pt}%
-    \setlength{\itemsep}{0pt}%
-    \setlength{\parsep}{0pt}%
-    \setlength{\partopsep}{0pt}%
-    \setlength{\leftmargin}{\bibhang}%
-    \setlength{\itemindent}{-\leftmargin}%
-    }
-    \item}
-{\endlist}
+
 \newcommand{\citeproctext}[1]{#1}
 
 % Fonts

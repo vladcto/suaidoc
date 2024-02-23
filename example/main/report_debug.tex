@@ -16,7 +16,11 @@
 \usepackage{setspace}
 \onehalfspacing
 
-\usepackage{biblatex}
+\usepackage[square,sort,comma,numbers]{natbib}
+\setlength{\bibhang}{0pt}
+\makeatletter
+\renewcommand{\@biblabel}[1]{}
+\makeatother
 \newenvironment{CSLReferences}[2] % #1 is the starting number, #2 is (hanging)indent
 {\list
     {}
@@ -29,7 +33,6 @@
     }
     \item}
 {\endlist}
-
 \newcommand{\citeproctext}[1]{#1}
 
 % Fonts
@@ -237,7 +240,7 @@
 \usepackage{grffile}
 \usepackage{pdfpages}
 \begin{document}
-\includepdf[pages={1}, fitpaper=true]{\detokenize{/var/folders/mr/twkc4jg14f3cl5vr1lh0kgl80000gn/T/tmp5jxoi48y/intro.pdf}}
+\includepdf[pages={1}, fitpaper=true]{\detokenize{/var/folders/mr/twkc4jg14f3cl5vr1lh0kgl80000gn/T/tmp5ok_uk9u/intro.pdf}}
 \sloppy
 \tableofcontents
 \section{Почему suaidoc?}\label{ux43fux43eux447ux435ux43cux443-suaidoc}
@@ -596,7 +599,7 @@ a_{12} & a_{22} \\
 Вы можете включить код из файла, используя синтаксис включения файлов
 Markdown. Просто укажите путь к файлу в круглых скобках после ключевого
 слова \passthrough{\lstinline!include!}. Код из файла будет вставлен в
-документ и отформатирован как блок кода \cite{ref-ref1}.
+документ и отформатирован как блок кода \cite{ref-ref1} \cite{ref-ref2}.
 
 \centertitle{ИСПОЛЬЗОВАННЫЕ ИСТОЧНИКИ}
 
@@ -604,6 +607,10 @@ Markdown. Просто укажите путь к файлу в круглых �
 \begin{CSLReferences}{0}{1}
 \bibitem[\citeproctext]{ref-ref1}
 1. Doe J. An example paper // Journal of Example Studies. 2021. № 1 (1).
+C. 1--10.
+
+\bibitem[\citeproctext]{ref-ref2}
+2. Doe J. An example paper // Journal of Example Studies. 2021. № 1 (1).
 C. 1--10.
 
 \end{CSLReferences}
