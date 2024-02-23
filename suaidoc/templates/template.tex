@@ -23,12 +23,12 @@
 \makeatother
 \makeatletter
 \newcounter{bibcounter}
-\@ifundefined{CSLReferences}{%
-  \newenvironment{CSLReferences}[2] % #1 is the sectioning level
-   {\list{}%
-    {\setlength{\leftmargin}{\bibindent}%
-     \setlength{\itemindent}{-\leftmargin}%
-     \setlength{\itemsep}{\bibsep}%
+\@ifundefined{CSLReferences}{
+  \newenvironment{CSLReferences}[2]
+   {\list{}
+    {\setlength{\leftmargin}{\bibindent}
+     \setlength{\itemindent}{-\leftmargin}
+     \setlength{\itemsep}{\bibsep}
      \setlength{\parsep}{\z@}}}
    {\endlist}
 }{}
