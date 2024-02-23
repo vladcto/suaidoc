@@ -35,6 +35,7 @@ references:
   type: article-journal
   issued:
     year: 2021
+bibliography: a.bib
 csl: ieee.csl
 ---
 
