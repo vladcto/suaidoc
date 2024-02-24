@@ -12,7 +12,7 @@ nocite: |
     @*
 references:
 - id: ref1
-  title: An example paper
+  title: "An example paper"
   author:
   - family: Doe
     given: John
@@ -26,7 +26,6 @@ references:
 - id: ref2
   title: "Кнут Дональд Э.; Козаченко Ю.В. (общ. ред.). — 3-е изд., [испр. и доп.]. — М. [и др.] : Вильямс., 2012 — 712 с.: ил., табл. — (Классический труд). — Пер. изд. : The art of computer programming / Knuth Donald E. 3d ed. Reading (Mass) : Addison-Wesley, cop. 1998. Предм. указ.: с. 692-712. — ISBN 978-5-8459-0080-7."
 bibliography: a.bib
-csl: ieee.csl
 ---
 
 # Почему suaidoc?

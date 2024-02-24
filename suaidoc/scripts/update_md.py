@@ -1,5 +1,7 @@
-from os import path
+from importlib.resources import files
 import re
+
+import suaidoc.templates
 
 
 def setup_images_size(md_content):
@@ -87,6 +89,10 @@ def wrap_remain_equations(md_content):
 def add_intro_page_path(md_content, pdf_template_path):
     return md_content.replace('---', f'---\nsuaidocintropath: \detokenize{{{pdf_template_path}}}', 1)
 
+def add_csl_metadata(md_content):
+    gost_csl = files(suaidoc.templates).joinpath('gost2008.csl');
+    return md_content.replace('---', f'---\ncsl: {gost_csl}')
+
 
 def update_markdown_file(markdown_path, output_file_path, pdf_template_path):
     with open(markdown_path, 'r', encoding='utf-8') as file:
@@ -101,5 +107,7 @@ def update_markdown_file(markdown_path, output_file_path, pdf_template_path):
     md = wrap_remain_equations(md)
 
     md = add_intro_page_path(md, pdf_template_path)
+    md = add_csl_metadata(md)
+    
     with open(output_file_path, mode='w+', encoding='utf-8') as output_file:
         output_file.write(md)
