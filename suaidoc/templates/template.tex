@@ -6,6 +6,7 @@
 \usepackage{ dsfont }
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
+\usepackage{csquotes}
 % = margins
 \usepackage[left=3cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 % = indents
@@ -14,6 +15,29 @@
 % = spacing
 \usepackage{setspace}
 \onehalfspacing
+
+% Bibliography
+\usepackage[square,sort,comma,numbers]{natbib}
+\setlength{\bibhang}{0pt}
+\makeatletter
+\renewcommand{\@biblabel}[1]{}
+\makeatother
+\makeatletter
+\newcounter{bibcounter}
+\@ifundefined{CSLReferences}{
+  \newenvironment{CSLReferences}[2]
+   {\list{}
+    {\setlength{\leftmargin}{\bibindent}
+     \setlength{\itemindent}{-\leftmargin}
+     \setlength{\itemsep}{\bibsep}
+     \setlength{\parsep}{\z@}}}
+   {\endlist}
+}{}
+\let\oldbibitem\bibitem
+\renewcommand{\bibitem}[2][]{\stepcounter{bibcounter}\oldbibitem{#2}}
+\makeatother
+
+\newcommand{\citeproctext}[1]{#1}
 
 % Fonts
 % = family
@@ -215,13 +239,12 @@
 \usepackage{chngcntr}
 \counterwithin{figure}{section}
 \counterwithin{table}{section}
-\counterwithin{equation}{section}
 
 \usepackage{grffile}
 \usepackage{pdfpages}
 \begin{document}
 $if(suaidocintropath)$
-  \includepdf[pages={1}, fitpaper=true]{$suaidocintropath$}
+\includepdf[pages={1}, fitpaper=true]{$suaidocintropath$}
 $endif$
 \sloppy
 \tableofcontents
