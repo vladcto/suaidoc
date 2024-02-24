@@ -91,7 +91,7 @@ def add_intro_page_path(md_content, pdf_template_path):
 
 def add_csl_metadata(md_content):
     gost_csl = files(suaidoc.templates).joinpath('gost2008.csl');
-    return md_content.replace('---', f'---\ncsl: {gost_csl}')
+    return md_content.replace('---', f'---\ncsl: {gost_csl}', 1)
 
 
 def update_markdown_file(markdown_path, output_file_path, pdf_template_path):
