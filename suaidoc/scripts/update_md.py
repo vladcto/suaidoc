@@ -90,7 +90,7 @@ def add_intro_page_path(md_content, pdf_template_path):
     return md_content.replace('---', f'---\nsuaidocintropath: \detokenize{{{pdf_template_path}}}', 1)
 
 def add_csl_metadata(md_content):
-    gost_csl = files(suaidoc.templates).joinpath('gost2008.csl');
+    gost_csl = files(suaidoc.templates).joinpath('gost2008.csl')
     return md_content.replace('---', f'---\ncsl: {gost_csl}', 1)
 
 
