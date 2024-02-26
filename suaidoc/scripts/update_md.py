@@ -53,7 +53,7 @@ def wrap_cyrillic_in_mathit(md_content):
 def latex_equation(content, numerate=True):
     equation = 'equation' if numerate else "equation*"
     return (f"\\begin{{{equation}}}\\begin{{gathered}}"
-            f"{content}\n"
+            f"{content}"
             f"\\end{{gathered}}\\end{{{equation}}}")
 
 
